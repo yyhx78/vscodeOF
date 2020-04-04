@@ -5,8 +5,10 @@
 
 FROM openfoamplus/of_v1906_centos73
 
-RUN yum install -y gdb
+ARG username=ofuser
+ENV USER=$username 
 
-RUN echo "ofuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN    yum install -y gdb \
+    && echo "$username ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER ofuser
+USER $username
